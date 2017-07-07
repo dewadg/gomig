@@ -5,6 +5,11 @@ gomig is a Go library which helps you handle database migrations. Heavily inspir
 ## Supported Database
 Currently supports only: MariaDB, MySQL
 
+## Installation
+```go
+go get github.com/dewadg/gomig
+```
+
 ## Usage
 Import gomig to your project:
 ```go
