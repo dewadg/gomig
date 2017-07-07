@@ -13,7 +13,7 @@ go get github.com/dewadg/gomig
 ## Usage
 Import gomig to your project:
 ```go
-import "github.com/dewadg/gomig
+import "github.com/dewadg/gomig"
 ```
 
 Create a gomig instance:
