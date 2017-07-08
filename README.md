@@ -40,7 +40,7 @@ migrator.SetMigrations(func() []*gomig.Migration {
             Up: func() error {
                 return migrator.Create("roles", func() *gomig.Table {
                     table := gomig.NewTable()
-                    table.Integer("id").NotNull().Primary()
+                    table.Integer("id").Unsigned().Primary()
                     table.Varchar("name", 255).NotNull()
 
                     return table
@@ -55,7 +55,7 @@ migrator.SetMigrations(func() []*gomig.Migration {
             Up: func() error {
                 return migrator.Create("users", func() *gomig.Table {
                     table := gomig.NewTable()
-                    table.Integer("id").NotNull().Primary()
+                    table.Integer("id").Unsigned().Primary()
                     table.Varchar("email", 255).NotNull()
                     table.Varchar("password", 60).NotNull()
                     table.DateTime("created_at").NotNull()
