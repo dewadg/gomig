@@ -98,6 +98,11 @@ table.Varchar("name", 255) // 255 is the length of the column
 table.DateTime("name")
 ```
 
+#### Enum
+```go
+table.Enum("name", "value1", "value2", "value3") // 2nd++ params will be the values
+```
+
 ### Other Methods
 Column defining methods can also have other methods to be chained for several use:
 ```go
