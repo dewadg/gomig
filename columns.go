@@ -149,6 +149,10 @@ type DateTimeCol struct {
 func (c *DateTimeCol) ToString() string {
 	output := c.Name + " DATETIME"
 
+	if c.IsNotNull {
+		output += " NOT NULL"
+	}
+
 	return output
 }
 
@@ -166,6 +170,53 @@ func (c *DateTimeCol) NotNull() *DateTimeCol {
 // DateTime returns new instance of DateTimeCol.
 func (cols *Table) DateTime(name string) *DateTimeCol {
 	c := &DateTimeCol{Name: name}
+	cols.Columns = append(cols.Columns, c)
+	return c
+}
+
+// EnumCol represents an enum-type column.
+type EnumCol struct {
+	Name      string
+	IsNotNull bool
+	Values    []string
+}
+
+// ToString returns current DateTimeCol instance as a string
+func (c *EnumCol) ToString() string {
+	output := c.Name + " enum(" + c.valuesToString() + ")"
+
+	if c.IsNotNull {
+		output += " NOT NULL"
+	}
+
+	return output
+}
+
+// IsPK determines if current EnumCol is a primary key.
+func (c *EnumCol) IsPK() bool {
+	return false
+}
+
+// NotNull sets current EnumCol instance as not-null field.
+func (c *EnumCol) NotNull() *EnumCol {
+	c.IsNotNull = true
+	return c
+}
+
+// valuesToString converts []string values into enum definer value like 'A', 'B', 'C'
+func (c *EnumCol) valuesToString() string {
+	temp := make([]string, 0)
+
+	for _, v := range c.Values {
+		temp = append(temp, "'"+v+"'")
+	}
+
+	return strings.Join(temp, ", ")
+}
+
+// Enum returns new instance of EnumCol.
+func (cols *Table) Enum(name string, values ...string) *EnumCol {
+	c := &EnumCol{Name: name, Values: values}
 	cols.Columns = append(cols.Columns, c)
 	return c
 }

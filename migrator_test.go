@@ -54,6 +54,22 @@ func TestMigration(t *testing.T) {
 					return m.Drop("users")
 				},
 			},
+			&Migration{
+				Name: "create_posts_table",
+				Up: func() error {
+					return m.Create("posts", func() *Table {
+						table := NewTable()
+						table.Integer("id").NotNull().Primary()
+						table.Varchar("title", 255).NotNull()
+						table.Enum("type", "post", "page", "static").NotNull()
+
+						return table
+					})
+				},
+				Down: func() error {
+					return m.Drop("posts")
+				},
+			},
 		}
 	})
 
